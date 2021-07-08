@@ -12,7 +12,22 @@ ViewModel : Android architecture component 1
 
  - When activity or fragment is re-created, the **ViewModel instance is same** as the one that was created by the first activity.
 
- - When the activity is finished or fragment is detached, the ViewModel is destroyed and `onCleared()` callback is called to clean up the resources.
+ - When the activity is finished or fragment is detached, the ViewModel object is destroyed and `onCleared()` callback is called to clean up the resources.
 
 ## How to create ViewModel
- - 
+ 1. Add dependency and creat a class that extends ViewModel() class.
+    > ViewModel() is an absract class that contains onCleared() method
+    
+ 2. Create a reference to the ViewModel inside UI controller through `get(Class<T> modelClass)` method from `ViewModelProvider` class.
+    ```
+    class SomeFragment : Fragment() {
+      private lateinit var viewModel: SomeViewModel
+     
+      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): 
+       View? {
+        viewModel = ViewModelProvider(this).get(SomeViewModel::class.java)
+        ...
+     }                     
+    }
+    ```
+    ViewModelProvider(context).get(..) will create new ViewModel object, or return an existing one if it exists. And this instance will not be destroyed as long as the scope is alive.

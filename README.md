@@ -31,3 +31,4 @@ ViewModel : Android architecture component 1
     }
     ```
     ViewModelProvider(context).get(..) will create new ViewModel object, or return an existing one if it exists. Now this instance should be the one that holds all the UI data!
+    > ViewModel object **should not** contain references to the associated Activities and Fragments since they don't survive during configuration changes.
